@@ -31,27 +31,10 @@
   border-top-right-radius: 0;
 }
 
-#logreg-forms .social-login {
-  width: 390px;
-  margin: 0 auto;
-  margin-bottom: 14px;
-}
-#logreg-forms .social-btn {
-  font-weight: 100;
-  color: white;
-  width: 190px;
-  font-size: 0.9rem;
-}
-
 #logreg-forms a {
   display: block;
   padding-top: 10px;
   color: lightseagreen;
-}
-
-#logreg-form .lines {
-  width: 200px;
-  border: 1px solid red;
 }
 
 .form-signup {
