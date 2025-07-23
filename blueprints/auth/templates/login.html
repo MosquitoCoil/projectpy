@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %}
+    <h2>{{message}}</h2>
+    {% endfor %} {% endif %} {% endwith %}
+    <h1>Login Page</h1>
+    <div class="container">
+      <h2>Login</h2>
+      <form action="" method="POST">
+        <input type="text" name="username" placeholder="username" />
+        <input type="password" name="password" placeholder="password" />
+        <button type="submit">Submit</button>
+        <a href="/register">Sign-Up</a>
+      </form>
+    </div>
+  </body>
+</html>
