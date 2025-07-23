@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, session, redirect, flash
 from database.db import get_db_connection
 from werkzeug.security import check_password_hash
+from datetime import datetime
 
 login_bp = Blueprint(
     "login", __name__, static_folder="static", template_folder="templates"
@@ -23,8 +24,9 @@ def login():
             session["username"] = user["username"]
             session["is_admin"] = user["is_admin"]
             session["firstname"] = user["firstname"]
+            login_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-            flash(f"Welcome, {user["firstname"]}! Logged in at {user["timecreated"]}")
+            flash(f"Welcome, {user["firstname"]}! Logged in at {login_time}")
 
             if user["is_admin"]:
                 return redirect("/list")
