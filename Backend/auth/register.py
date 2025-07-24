@@ -1,11 +1,12 @@
-from flask import Blueprint, request, render_template, redirect, Response
-import mysql.connector
-from werkzeug.security import generate_password_hash
+from flask import Blueprint, render_template, request, redirect, flash
 from database.db import get_db_connection
+from werkzeug.security import generate_password_hash
+import mysql.connector
 
-reg_bp = Blueprint("register", __name__, template_folder="templates")
+reg_bp = Blueprint("register", __name__, template_folder="../../Frontend/templates")
 
 
+# register
 @reg_bp.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -25,8 +26,9 @@ def register():
                 (firstname, lastname, username, hashed_pw),
             )
             conn.commit()
+            flash("Registered Successfully!", "success")
         except mysql.connector.Error as err:
-            return f"Error: {err}"
+            flash(f"Error: {err}")
         finally:
             conn.close()
         return redirect("/register")

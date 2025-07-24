@@ -1,10 +1,12 @@
-from flask import render_template, redirect, Blueprint, session
+from flask import render_template, Blueprint, session
 from database.db import get_db_connection
 
-list_bp = Blueprint("list", __name__, template_folder="templates")
+user_list_bp = Blueprint(
+    "list", __name__, template_folder="../../Frontend/admin/templates"
+)
 
 
-@list_bp.route("/list")
+@user_list_bp.route("/list")
 def list():
     if not session.get("is_admin"):
         return "<h1>You're not an admin</h1>"
@@ -14,4 +16,4 @@ def list():
     users = cursor.fetchall()
     conn.close()
 
-    return render_template("user_list.html", users=users, title="Registered User List")
+    return render_template("user_list.html", users=users)

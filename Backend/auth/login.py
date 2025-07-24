@@ -4,15 +4,19 @@ from werkzeug.security import check_password_hash
 from datetime import datetime
 
 login_bp = Blueprint(
-    "login", __name__, static_folder="static", template_folder="templates"
+    "login",
+    __name__,
+    static_folder="static",
+    template_folder="../../Frontend/templates",
 )
 
 
+# login
 @login_bp.route("/", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
+        username = request.form.get("username")
+        password = request.form.get("password")
 
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
@@ -26,7 +30,7 @@ def login():
             session["firstname"] = user["firstname"]
             login_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-            flash(f"Welcome, {user["firstname"]}! Logged in at {login_time}")
+            flash(f"Welcome, {user["firstname"]}! Logged in at {login_time}", "success")
 
             if user["is_admin"]:
                 return redirect("/list")
@@ -38,6 +42,7 @@ def login():
     return render_template("login.html")
 
 
+# logout
 @login_bp.route("/logout")
 def logout():
     print("Logging out...")
