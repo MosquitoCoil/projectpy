@@ -14,6 +14,7 @@ def register():
         lastname: str = request.form["lastname"]
         username: str = request.form["username"]
         password = request.form["password"]
+        is_admin = request.form["is_admin"]
 
         hashed_pw = generate_password_hash(password)
 
@@ -22,8 +23,8 @@ def register():
 
         try:
             cursor.execute(
-                "INSERT INTO users (`firstname`, `lastname`, `username`, `password`) VALUES (%s, %s, %s, %s)",
-                (firstname, lastname, username, hashed_pw),
+                "INSERT INTO users (`firstname`, `lastname`, `username`, `password`, `is_admin`) VALUES (%s, %s, %s, %s, %s)",
+                (firstname, lastname, username, hashed_pw, is_admin),
             )
             conn.commit()
             flash("Registered Successfully!", "success")
@@ -31,5 +32,5 @@ def register():
             flash(f"Error: {err}")
         finally:
             conn.close()
-        return redirect("/register")
+        return redirect("/login")
     return render_template("register.html")

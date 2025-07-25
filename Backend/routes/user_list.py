@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, session
+from flask import render_template, Blueprint, session, flash, redirect
 from database.db import get_db_connection
 
 user_list_bp = Blueprint(
@@ -9,10 +9,14 @@ user_list_bp = Blueprint(
 @user_list_bp.route("/list")
 def list():
     if not session.get("is_admin"):
-        return "<h1>You're not an admin</h1>"
+        flash("Admin access only.", "error")
+        return redirect("/login")
+
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT id, firstname, username, timecreated FROM users")
+    cursor.execute(
+        "SELECT id, firstname, lastname, username, timecreated, is_admin FROM users"
+    )
     users = cursor.fetchall()
     conn.close()
 

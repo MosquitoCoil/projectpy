@@ -1,17 +1,13 @@
-from flask import Blueprint, render_template, request, session, redirect, flash
-from database.db import get_db_connection
+from flask import Blueprint, redirect, session, request, flash, render_template
 from werkzeug.security import check_password_hash
+from database.db import get_db_connection
 from datetime import datetime
 
 login_bp = Blueprint(
-    "login",
-    __name__,
-    static_folder="static",
-    template_folder="../../Frontend/templates",
+    "login", __name__, template_folder="../../Frontend/admin/templates"
 )
 
 
-# login
 @login_bp.route("/", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -26,17 +22,19 @@ def login():
 
         if user and check_password_hash(user["password"], password):
             session["username"] = user["username"]
-            session["is_admin"] = user["is_admin"]
             session["firstname"] = user["firstname"]
+            session["is_admin"] = user["is_admin"]
             login_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-            flash(f"Welcome, {user["firstname"]}! Logged in at {login_time}", "success")
+            flash(f"Welcome, {user['firstname']}! Logged in at {login_time}", "success")
 
-            if user["is_admin"]:
+            # Redirect based on user role
+            if user["is_admin"] == "admin":
                 return redirect("/list")
             else:
                 return redirect("/dashboard")
         else:
+            flash("Access denied. Incorrect username or password.", "error")
             return redirect("/login")
 
     return render_template("login.html")
@@ -45,6 +43,6 @@ def login():
 # logout
 @login_bp.route("/logout")
 def logout():
-    print("Logging out...")
     session.clear()
+    flash(f"Successfully logged out!.", "success")
     return redirect("/login")

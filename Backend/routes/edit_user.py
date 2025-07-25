@@ -11,7 +11,7 @@ edit_user_bp = Blueprint(
 @edit_user_bp.route("/edit-user/<int:user_id>", methods=["GET", "POST"])
 def edit_user(user_id):
     if not session.get("is_admin"):
-        flash("Access denied.")
+        flash("Admin access only.", "error")
         return redirect("/login")
 
     conn = get_db_connection()

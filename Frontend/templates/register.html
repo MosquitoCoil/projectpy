@@ -1,48 +1,71 @@
-{% extends 'base.html' %} {% block title %}List{% endblock %} {% block content
-%}
-<div id="logreg-forms">
-  {% with messages = get_flashed_messages(with_categories=true) %} {% if
-  messages %} {% for category, message in messages %}
-  <div class="flash-message {{ category }}">{{ message }}</div>
-  {% endfor %} {% endif %} {% endwith %}
-  <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">Sign up</h1>
-  <form action="/register" class="form-signup" method="POST">
-    <input
-      type="text"
-      name="firstname"
-      class="form-control form-group"
-      placeholder="Firstname"
-      required=""
-      autofocus=""
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='bootstrap.css') }}"
     />
-    <input
-      type="text"
-      name="lastname"
-      class="form-control form-group"
-      placeholder="Lastname"
-      required
-      autofocus=""
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
     />
-    <input
-      type="text"
-      name="username"
-      class="form-control form-group"
-      placeholder="Username"
-      required
-      autofocus=""
-    />
-    <input
-      type="password"
-      name="password"
-      class="form-control form-group"
-      placeholder="Password"
-      required
-      autofocus=""
-    />
-
-    <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
-    <hr />
-    <a href="/login">Back to login</a>
-  </form>
-</div>
-{% endblock %}
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %}
+    <div class="flash-message {{ category }}">
+      {{ message }} {% endfor %} {% endif %} {% endwith %}
+    </div>
+    <div id="logreg-forms">
+      <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">
+        Sign up
+      </h1>
+      <form action="/register" class="form-signup" method="POST">
+        <input
+          type="text"
+          name="firstname"
+          class="form-control form-group"
+          placeholder="Firstname"
+          required=""
+          autofocus=""
+        />
+        <input
+          type="text"
+          name="lastname"
+          class="form-control form-group"
+          placeholder="Lastname"
+          required
+          autofocus=""
+        />
+        <input
+          type="text"
+          name="username"
+          class="form-control form-group"
+          placeholder="Username"
+          required
+          autofocus=""
+        />
+        <input
+          type="password"
+          name="password"
+          class="form-control form-group"
+          placeholder="Password"
+          required
+          autofocus=""
+        /><br />
+        <p>Change user to:</p>
+        <select class="custom-select" name="is_admin">
+          <option value="admin">admin</option>
+          <option value="user">user</option>
+        </select>
+        <br />
+        <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
+        <hr />
+        <a href="/login">Back to login</a>
+      </form>
+    </div>
+  </body>
+</html>

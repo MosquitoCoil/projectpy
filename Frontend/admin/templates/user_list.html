@@ -1,25 +1,32 @@
-{% extends 'base.html' %} {% block title %}List of Users{% endblock %} {% block
+{% extends 'admin.html' %} {% block title %}List of Users{% endblock %} {% block
 content %} {% with messages = get_flashed_messages(with_categories=true) %} {%
 if messages %} {% for category, message in messages %}
-<div class="flash-message {{ category }}">
-  {{ message }} {% endfor %} {% endif %} {% endwith %}
-</div>
+<div class="flash-message {{ category }}">{{ message }}</div>
+{% endfor %} {% endif %} {% endwith %}
+
 <h2>List of Registered Users</h2>
-<table>
+
+<!-- ✅ Button moved outside thead -->
+<a href="{{ url_for('add.add_user') }}" class="btn btn-primary mb-3"
+  >Add User</a
+>
+
+<table id="userTable" class="display">
   <thead>
     <tr>
-      <th>ID</th>
+      <th>NO.</th>
       <th>Firstname</th>
       <th>Lastname</th>
       <th>Email (Username)</th>
       <th>Created At</th>
       <th>Action</th>
+      <th>User type</th>
     </tr>
   </thead>
   <tbody>
     {% for user in users %}
     <tr>
-      <td>{{ user.id }}</td>
+      <td>{{ loop.index }}</td>
       <td>{{ user.firstname }}</td>
       <td>{{ user.lastname }}</td>
       <td>{{ user.username }}</td>
@@ -32,20 +39,28 @@ if messages %} {% for category, message in messages %}
           >Delete</a
         >
       </td>
+      <td>{{ user.is_admin }}</td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
-<a href="{{ url_for('login.logout')}}">logout</a>
 {% endblock %} {% block extra_script %}
+<script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='datatables/js/datatables.min.js') }}"></script>
 <script>
   window.addEventListener("DOMContentLoaded", function () {
     const flashMessages = document.querySelectorAll(".flash-message");
     flashMessages.forEach((msg) => {
       setTimeout(() => {
         msg.style.opacity = "0";
-        setTimeout(() => msg.remove(), 500); // Remove after fade-out
-      }, 3000); // Disappear after 3 seconds
+        setTimeout(() => msg.remove(), 500);
+      }, 3000);
+    });
+  });
+
+  $(document).ready(function () {
+    $("#userTable").DataTable({
+      pageLength: 6,
     });
   });
 </script>

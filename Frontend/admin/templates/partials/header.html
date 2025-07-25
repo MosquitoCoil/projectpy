@@ -1,0 +1,48 @@
+{% block content %}
+<header class="main-header">
+  <div class="logo fa-solid fa-user"></div>
+  <div class="profile-dropdown">
+    <div class="fa-solid fa-bars" id="profileToggle"></div>
+    <ul class="dropdown-menu" id="dropdownMenu" data-open="false">
+      <li><a href="/profile">Profile</a></li>
+      <li><a href="{{ url_for('login.logout') }}">Logout</a></li>
+    </ul>
+  </div>
+</header>
+{% endblock %} {% block extra_script %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("profileToggle");
+    const menu = document.getElementById("dropdownMenu");
+
+    toggle.addEventListener("click", function () {
+      // Show it temporarily to measure position
+      menu.style.display = "block";
+
+      const rect = menu.getBoundingClientRect();
+
+      // Check if it's overflowing
+      if (rect.right > window.innerWidth) {
+        menu.style.left = "auto";
+        menu.style.right = "0";
+      }
+
+      // Optional: toggle back if already visible
+      if (menu.dataset.open === "true") {
+        menu.style.display = "none";
+        menu.dataset.open = "false";
+      } else {
+        menu.style.display = "block";
+        menu.dataset.open = "true";
+      }
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest(".profile-dropdown")) {
+        menu.style.display = "none";
+        menu.dataset.open = "false";
+      }
+    });
+  });
+</script>
+{% endblock %}
