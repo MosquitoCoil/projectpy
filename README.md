@@ -20,7 +20,6 @@ project-root/
 ├── frontend/                # Web frontend (Jinja templates)
 │   ├── templates/
 │   └── static/
-│
 
 ```
 
