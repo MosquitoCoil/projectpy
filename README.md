@@ -3,6 +3,8 @@
 A full-stack CRUD system using **one shared backend** (Flask + MySQL) with:
 
 - ✅ A **Web App** (Flask + Jinja + HTML/CSS/Bootstrap)
+
+---
   
 ## 📁 Project Structure
 
