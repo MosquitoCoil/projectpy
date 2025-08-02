@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, session, request, flash, render_template
+from flask import Blueprint, redirect, session, flash
 from database.db import get_db_connection
 
 del_user_bp = Blueprint(
