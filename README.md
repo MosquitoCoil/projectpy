@@ -14,12 +14,13 @@ A full-stack CRUD system using **one shared backend** (Flask + MySQL) with:
 
 ```
 project-root/
-├── backend/            # Flask API + MySQL connection
+├── backend/            # REST API + MySQL connection
 │   ├── app.py
 │   ├── auth/
 │   ├── templates/
 │   ├── static/
 │   └── database/
+│   ├── api/
 │
 ├── frontend/                # Web frontend (Jinja templates)
 │   ├── templates/
