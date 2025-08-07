@@ -43,13 +43,8 @@
     /><br />
     <p>Change user to:</p>
     <select class="custom-select" name="is_admin">
-      {% if user.is_admin == 1 %}
-      <option value="{{user.is_admin}}">admin</option>
-      {% else %}
-      <option value="{{user.is_admin}}">user</option>
-      {% endif %}
-      <option value="1">admin</option>
-      <option value="0">user</option>
+      <option value="admin">admin</option>
+      <option value="user">user</option>
     </select>
     <br />
     <button class="btn btn-primary btn-block" type="submit">Add</button>
