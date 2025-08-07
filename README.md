@@ -15,17 +15,16 @@ A full-stack CRUD system using **one shared backend** (Flask + MySQL) with:
 ```
 project-root/
 ├── backend/            # REST API + MySQL connection
-│   ├── app.py
-│   ├── auth/
-│   ├── templates/
-│   ├── static/
-│   └── database/
 │   ├── api/
+│   ├── auth/
+│   └── routes/
 │
 ├── frontend/                # Web frontend (Jinja templates)
+│   ├── admin/templates/
 │   ├── templates/
-│   └── static/
-
+│   └── user/templates/
+├── database/
+│   └── db.py/
 ```
 
 ---
